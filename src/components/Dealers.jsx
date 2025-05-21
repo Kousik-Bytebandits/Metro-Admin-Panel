@@ -23,7 +23,7 @@ const Dealers = () => {
     navigate("/dealer-management");
   }
   return (
-    <div className="min-h-screen font-archivo flex flex-col bg-[#00193b] text-white px-4 py-6">
+    <div className="min-h-screen font-archivo flex flex-col bg-[#00193b] text-white px-4 py-6 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 mt-4">
         <button onClick={handleBack} className="bg-[#4F89FC] text-[#031123] rounded-full p-2">

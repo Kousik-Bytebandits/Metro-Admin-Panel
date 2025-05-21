@@ -13,7 +13,7 @@ const HomeManagement = () => {
   navigate("/dealers");
  }
   return (
-    <div className="min-h-screen bg-[#001a3d] font-archivo  text-white flex flex-col items-center py-8 px-4">
+    <div className="min-h-screen bg-[#001a3d] font-archivo  text-white flex flex-col items-center py-8 px-4 overflow-hidden">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-6 ">
         <button className="bg-[#4F89FC] rounded-full p-2" onClick={handleBack}>

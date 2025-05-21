@@ -52,7 +52,7 @@ const DealerManagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#00193b] font-archivo text-white p-4 flex flex-col items-center">
+    <div className="min-h-screen bg-[#00193b] font-archivo text-white p-4 flex flex-col items-center overflow-hidden">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-4 mt-4">
         <button onClick={handleBack} className="bg-[#4F89FC] p-2 rounded-full">
@@ -150,7 +150,7 @@ const DealerManagement = () => {
       </div>
 
       {/* Footer */}
-      <div className="text-center text-xs text-[#CCCCCC] mt-auto">
+      <div className="text-center text-xs text-[#CCCCCC]  ">
         <p>Copyright © 2025 By Metro Scales. All Rights Reserved</p>
         <p>Powered By ByteBandits</p>
       </div>
