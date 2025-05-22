@@ -14,6 +14,8 @@ const DealerManagement = () => {
     pincode: ""
   });
 
+  const [loading, setLoading] = useState(false); 
+
   const handleBack = () => {
     navigate("/dealers");
   };
@@ -27,7 +29,7 @@ const DealerManagement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true); 
     try {
       const res = await fetch("https://metro.bytebandits.in/dealers/create", {
         method: "POST",
@@ -48,8 +50,22 @@ const DealerManagement = () => {
     } catch (error) {
       alert("Network error");
       console.error(error);
+    } finally {
+      setLoading(false); 
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#00193b] flex items-center justify-center">
+        <div className="flex space-x-2">
+          <div className="w-1.5 h-3 bg-blue-400 animate-bounce-short delay-[0ms] rounded"></div>
+          <div className="w-1.5 h-6 bg-blue-400 animate-bounce-tall delay-[150ms] rounded"></div>
+          <div className="w-1.5 h-3 bg-blue-400 animate-bounce-short delay-[300ms] rounded"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#00193b] font-archivo text-white p-4 flex flex-col items-center overflow-hidden">
@@ -68,7 +84,6 @@ const DealerManagement = () => {
       <div className="bg-[#031123] w-full max-w-md mt-6 rounded p-4 mb-5">
         <h2 className="text-[18px] font-semibold mb-6">Dealer Details</h2>
 
-        {/* Form */}
         <form className="space-y-8 text-[15px] text-[#CCCCCC] mb-4" onSubmit={handleSubmit}>
           <div>
             <label className="block mb-1">Dealer Name</label>
@@ -150,7 +165,7 @@ const DealerManagement = () => {
       </div>
 
       {/* Footer */}
-      <div className="text-center text-xs text-[#CCCCCC]  ">
+      <div className="text-center text-xs text-[#CCCCCC] mt-auto">
         <p>Copyright © 2025 By Metro Scales. All Rights Reserved</p>
         <p>Powered By ByteBandits</p>
       </div>
