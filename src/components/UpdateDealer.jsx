@@ -55,7 +55,7 @@ const UpdateDealer = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#00193b] text-white font-sans flex flex-col items-center p-4">
+    <div className="min-h-screen bg-[#00193b] text-white font-archivo flex flex-col items-center p-4">
       {/* Header */}
       <div className="flex justify-between items-center w-full max-w-md mb-6 mt-4">
         <button onClick={() => navigate(-1)} className="bg-[#4F89FC] p-2 rounded-full">
