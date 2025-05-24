@@ -12,6 +12,9 @@ const HomeManagement = () => {
  const handleDealer=()=>{
   navigate("/dealers");
  }
+ const handleCustomer=()=>{
+  navigate("/customer-invoice");
+ }
   return (
     <div className="min-h-screen bg-[#001a3d] font-archivo  text-white flex flex-col items-center py-8 px-4 overflow-hidden">
       {/* Header */}
@@ -30,7 +33,7 @@ const HomeManagement = () => {
       </div>
        <div className="space-y-10">
       {/* Date */}
-      <div className="w-full bg-[#031123] rounded-lg p-6 text-center text-[25px] font-semibold mb-6">
+      <div className="w-full bg-[#031123] shadow-custom-blue rounded-lg p-6 text-center text-[25px] font-semibold mb-6">
         {formattedDate}
       </div>
        
@@ -40,7 +43,7 @@ const HomeManagement = () => {
       </button>
 
       {/* Customer Button */}
-      <button className="w-full h-[200px] font-archivo bg-[#cc435a] rounded p-8 text-[40px] font-bold shadow-md mb-6">
+      <button onClick={handleCustomer} className="w-full h-[200px] font-archivo bg-[#cc435a] rounded p-8 text-[40px] font-bold shadow-md mb-6">
         CUSTOMER
       </button>
      </div>
