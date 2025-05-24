@@ -5,11 +5,13 @@ import Dealers from "./components/Dealers";
 import DealerManagement from "./components/DealerManagement";
 import UpdateDealer from "./components/UpdateDealer";
 import DealerStocks from "./components/DealerStocks";
+import ScrollToTop from "./components/ScrollToTop";
 import CustomerInvoice from "./components/CustomerInvoice";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home-management" element={<HomeManagement/>}/>
