@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -49,14 +49,14 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-white font-archivo relative">
       {/* Background image */}
-      <div className="relative w-full h-[45dvh]">
-        <img
-          src="back.png"
-          alt="Background"
-          className="w-full h-full object-cover"
-        />
-      
-      </div>
+     <div className="relative w-full overflow-hidden">
+  <img src="back.png" alt="Background" className="w-full h-[45dvh] object-cover " />
+  <div className="ocean ">
+    <div className="wave"></div>
+    <div className="wave"></div>
+  </div>
+</div>
+
 
       {/* Content Area */}
       <div className="w-full max-w-sm mx-auto px-6 mt-4 flex-1">

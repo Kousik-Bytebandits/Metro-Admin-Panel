@@ -5,6 +5,7 @@ import Dealers from "./components/Dealers";
 import DealerManagement from "./components/DealerManagement";
 import UpdateDealer from "./components/UpdateDealer";
 import DealerStocks from "./components/DealerStocks";
+import CustomerInvoice from "./components/CustomerInvoice";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dealer-management" element={<DealerManagement/>}/>
         <Route path="/update-dealer" element={<UpdateDealer/>}/>
         <Route path="/dealer-stocks" element={<DealerStocks/>}/>
+          <Route path="/customer-invoice" element={<CustomerInvoice/>}/>
       </Routes>
     </Router>
   );

@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .ocean {
+    @apply w-full absolute left-0 bottom-0;
+  }
+
+  .wave {
+    background: url("wave.svg") repeat-x;
+    @apply absolute w-[6400px] h-[188px] top-[-120px] animate-wave;
+  }
+
+  .wave-second {
+    @apply top-[-175px] opacity-100 animate-wave;
+    animation-delay: -0.125s;
+    animation-name: wave, swell;
+  }
+}
