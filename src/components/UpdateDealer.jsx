@@ -13,14 +13,18 @@ const UpdateDealer = () => {
     phone_number: "",
     address: "",
     city: "",
-    pincode: ""
+    pincode: "",
   });
 
-  useEffect(() => {
-    if (state) {
-      setFormData(state); 
-    }
-  }, [state]);
+ useEffect(() => {
+  if (state) {
+    setFormData((prev) => ({
+      ...prev,
+      ...state, 
+    }));
+  }
+}, [state]);
+
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -68,7 +72,7 @@ const UpdateDealer = () => {
       </div>
 
       {/* Form */}
-      <div className="bg-[#031123] text-[15px] text-[#CCCCCC] p-6 rounded-lg shadow-md w-full max-w-md">
+      <div className="bg-[#031123] shadow-custom-blue text-[15px] text-[#CCCCCC] p-6 rounded-lg  w-full max-w-md">
         <h2 className="text-[18px] font-semibold mb-4 text-white">Dealer Details</h2>
         <form className="space-y-5 " onSubmit={handleSubmit}>
           <div>

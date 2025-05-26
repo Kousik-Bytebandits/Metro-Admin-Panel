@@ -50,7 +50,7 @@ const Login = () => {
     <div className="min-h-screen bg-white font-archivo relative">
       {/* Background image */}
      <div className="relative w-full overflow-hidden">
-  <img src="back.png" alt="Background" className="w-full h-[45dvh] object-cover " />
+  <img src="/back.png" alt="Background" className="w-full h-[45dvh] object-cover " />
   <div className="ocean ">
     <div className="wave"></div>
     <div className="wave"></div>
@@ -62,7 +62,7 @@ const Login = () => {
       <div className="w-full max-w-sm mx-auto px-6 mt-4 flex-1">
         {/* Logo */}
         <div className="flex justify-center mb-2">
-          <img src="logo.png" alt="Logo" className="h-14" />
+          <img src="/logo.png" alt="Logo" className="h-14" />
         </div>
 
         {/* Title */}

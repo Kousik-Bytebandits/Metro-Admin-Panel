@@ -8,7 +8,7 @@
   }
 
   .wave {
-    background: url("wave.svg") repeat-x;
+    background: url("/wave.svg") repeat-x;
     @apply absolute w-[6400px] h-[188px] top-[-120px] animate-wave;
   }
 

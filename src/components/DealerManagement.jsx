@@ -31,7 +31,7 @@ const DealerManagement = () => {
     e.preventDefault();
     setLoading(true); 
     try {
-      const res = await fetch("https://metro.bytebandits.in/dealers/create", {
+      const res = await ("https://metro.bytebandits.in/dealers/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const DealerManagement = () => {
       </div>
 
       {/* Form Container */}
-      <div className="bg-[#031123] w-full max-w-md mt-6 rounded p-4 mb-5">
+      <div className="bg-[#031123] shadow-custom-blue w-full max-w-md mt-6 rounded p-4 mb-5">
         <h2 className="text-[18px] font-semibold mb-6">Dealer Details</h2>
 
         <form className="space-y-8 text-[15px] text-[#CCCCCC] mb-4" onSubmit={handleSubmit}>

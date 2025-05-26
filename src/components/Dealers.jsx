@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import Loader from './Loader';
 
 const Dealers = () => {
+  
   const [dealerProfiles, setDealerProfiles] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const navigate = useNavigate();
+ const navigate = useNavigate();
+   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchDealers();
   }, []);
 
   const fetchDealers = () => {
+    setLoading(true);
     fetch('https://metro.bytebandits.in/dealers/', {
       headers: {
         Authorization: 'Bearer 9f3a7c1d2b4e8f0a',
@@ -20,7 +23,8 @@ const Dealers = () => {
     })
       .then((res) => res.json())
       .then((data) => setDealerProfiles(data))
-      .catch((err) => console.error('Failed to fetch dealer data:', err));
+      .catch((err) => console.error('Failed to fetch dealer data:', err))
+      .finally(()=> setLoading(false));
   };
 
   const handleSearch = (e) => {
@@ -41,6 +45,7 @@ const Dealers = () => {
     }
   };
 
+ 
   const handleBack = () => {
     navigate('/home-management');
   };
@@ -53,12 +58,13 @@ const Dealers = () => {
     navigate("/update-dealer", { state: dealer });
   };
 
-  const handleStocks = () => {
-    navigate("/dealer-stocks");
+  const handleViewStocks = (dealer) => {
+      navigate(`/dealers/${dealer.id}/stocks`, { state: { dealerName: dealer.name } });
   };
 
   return (
     <div className="min-h-screen font-archivo flex flex-col bg-[#00193b] text-white px-4 py-6 overflow-hidden relative">
+   
       {/* Header */}
       <div className="flex items-center justify-between mb-4 mt-4">
         <button onClick={handleBack} className="bg-[#4F89FC] text-[#031123] rounded-full p-2">
@@ -71,7 +77,7 @@ const Dealers = () => {
       </div>
 
       {/* Add Profile Button */}
-      <div className="bg-[#031123] px-6 py-5 rounded mb-4">
+      <div className="bg-[#031123] shadow-custom-blue px-6 py-5 rounded mb-4">
         <button onClick={handleDealerManagement} className="w-full bg-[#00957E] text-white font-bold py-3 rounded text-[25px]">
           Add Profile
         </button>
@@ -93,11 +99,11 @@ const Dealers = () => {
 
       {/* View Profiles Label */}
       <p className="text-[12px] mb-2 text-[#CCCCCC]">View Profiles</p>
-
+           {loading && <Loader/>}
       {/* Dealer Boxes */}
       <div className="space-y-6 mb-24">
         {dealerProfiles.map((dealer) => (
-          <div key={dealer.id} className="bg-[#031123] text-[15px] text-[#CCCCCC] p-4 rounded">
+          <div key={dealer.id} className="bg-[#031123] shadow-custom-blue text-[15px] text-[#CCCCCC] p-4 rounded-lg">
             <h2 className="text-[30px] font-bold mb-8 text-center bg-white text-[#031123] py-4 rounded">
               {dealer.name}
             </h2>
@@ -106,7 +112,7 @@ const Dealers = () => {
             <p className="mb-10">{dealer.phone_number}</p>
             <div className="flex space-x-2">
               <button onClick={() => handleUpdate(dealer)} className="flex-1 bg-[#4F89FC] text-white py-2 rounded-lg">Edit Profile</button>
-              <button onClick={handleStocks} className="flex-1 bg-[#6C0A93] text-white py-2 rounded-lg">View Stocks</button>
+              <button onClick={()=> handleViewStocks(dealer)} className="flex-1 bg-[#6C0A93] text-white py-2 rounded-lg">View Stocks</button>
             </div>
           </div>
         ))}

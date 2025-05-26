@@ -6,6 +6,7 @@ import DealerManagement from "./components/DealerManagement";
 import UpdateDealer from "./components/UpdateDealer";
 import DealerStocks from "./components/DealerStocks";
 import ScrollToTop from "./components/ScrollToTop";
+import StockDetails from "./components/StockDetails";
 import CustomerInvoice from "./components/CustomerInvoice";
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
         <Route path="/dealers" element={<Dealers/>}/>
         <Route path="/dealer-management" element={<DealerManagement/>}/>
         <Route path="/update-dealer" element={<UpdateDealer/>}/>
-        <Route path="/dealer-stocks" element={<DealerStocks/>}/>
-          <Route path="/customer-invoice" element={<CustomerInvoice/>}/>
+        <Route path="/dealers/:id/stocks" element={<DealerStocks/>}/>
+         <Route path="/dealers/:id/stocks/:date" element={<StockDetails />} />
+         <Route path="/customer-invoice" element={<CustomerInvoice/>}/>
       </Routes>
     </Router>
   );
