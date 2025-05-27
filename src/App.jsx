@@ -8,20 +8,72 @@ import DealerStocks from "./components/DealerStocks";
 import ScrollToTop from "./components/ScrollToTop";
 import StockDetails from "./components/StockDetails";
 import CustomerInvoice from "./components/CustomerInvoice";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Router>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
+        
         <Route path="/" element={<Login />} />
-        <Route path="/home-management" element={<HomeManagement/>}/>
-        <Route path="/dealers" element={<Dealers/>}/>
-        <Route path="/dealer-management" element={<DealerManagement/>}/>
-        <Route path="/update-dealer" element={<UpdateDealer/>}/>
-        <Route path="/dealers/:id/stocks" element={<DealerStocks/>}/>
-         <Route path="/dealers/:id/stocks/:date" element={<StockDetails />} />
-         <Route path="/customer-invoice" element={<CustomerInvoice/>}/>
+        
+        <Route
+          path="/home-management"
+          element={
+            <ProtectedRoute>
+              <HomeManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dealers"
+          element={
+            <ProtectedRoute>
+              <Dealers />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dealer-management"
+          element={
+            <ProtectedRoute>
+              <DealerManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/update-dealer"
+          element={
+            <ProtectedRoute>
+              <UpdateDealer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dealers/:id/stocks"
+          element={
+            <ProtectedRoute>
+              <DealerStocks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dealers/:id/stocks/:date"
+          element={
+            <ProtectedRoute>
+              <StockDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer-invoice"
+          element={
+            <ProtectedRoute>
+              <CustomerInvoice />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

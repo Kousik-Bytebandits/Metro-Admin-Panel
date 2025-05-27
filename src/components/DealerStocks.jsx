@@ -88,9 +88,7 @@ const dates = data.map((inv) => {
      fetchDealerStats();
   }, [id]);
 
-  const goToNext = () => currentSlide < 2 && setCurrentSlide(currentSlide + 1);
-  const goToPrev = () => currentSlide > 0 && setCurrentSlide(currentSlide - 1);
-
+ 
   const handleDateChange = (date) => {
     const formatted = formatDate(date);
     const day = new Date(date).toLocaleDateString("en-US", { weekday: "long" });
@@ -168,6 +166,24 @@ const handlePaymentUpdate = () => {
     });
   };
 
+  const [startX, setStartX] = useState(0);
+
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+
+    if (diff > 50 && currentSlide < 1) {
+      
+      setCurrentSlide(currentSlide + 1);
+    } else if (diff < -50 && currentSlide > 0) {
+    
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
   return (
     <div className="bg-[#00193b] text-white font-archivo p-4 min-h-screen mx-auto" ref={topRef}>
       {/* Header */}
@@ -181,18 +197,49 @@ const handlePaymentUpdate = () => {
         </div>
       </div>
 
-      {/* Slides */}
-   
-      <div className="relative bg-[#031123] shadow-custom-blue rounded-lg">
-        {currentSlide === 0 && (
-          <div className="bg-[#031123] p-8 rounded-xl flex flex-col h-[300px]">
-           <p className="text-xl text-[#8E8E8E]">Balance</p>
-<h1 className="text-[50px] mb-2">₹ {dealerStats.balance?.toLocaleString() || "0"}</h1>
-<p className="text-xl text-[#8E8E8E] mt-2 mb-4">Net Revenue</p>
-<h2 className="text-[35px]"> ₹ {typeof dealerStats.revenue === "number"? dealerStats.revenue.toLocaleString(): "0"}</h2>
-         </div>
-        )}
-        {currentSlide === 1 && (
+ <div
+      className="relative overflow-hidden bg-[#031123] shadow-custom-blue rounded-lg h-[320px] w-full"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      
+    >
+      
+     
+      <div
+        className="flex transition-transform duration-500 ease-in-out w-[100%] h-full"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      >
+        {/* Slide 1 */}
+        <div className="w-full flex-shrink-0 p-8">
+          <p className="text-xl text-[#8E8E8E]">Balance</p>
+          <h1 className="text-[50px] mb-2">₹ {dealerStats.balance?.toLocaleString() || "0"}</h1>
+          <p className="text-xl text-[#8E8E8E] mt-2 mb-4">Net Revenue</p>
+          <h2 className="text-[35px]">₹ {typeof dealerStats.revenue === "number" ? dealerStats.revenue.toLocaleString() : "0"}</h2>
+        </div>
+
+        {/* Slide 2 */}
+           <div className="w-full flex-shrink-0 p-8">
+          <p className="text-sm text-[#8E8E8E] mb-2">Amount Paid</p>
+          <input
+            type="number"
+            value={paymentAmount}
+            onChange={(e) => setPaymentAmount(e.target.value)}
+            placeholder="₹ 24,000"
+            className="w-full p-2 text-[30px] rounded bg-[#00193B] border border-[#1B2E5D] text-white mb-4"
+          />
+          <p className="text-[18px] text-[#8E8E8E] mb-4">New Balance</p>
+          <div className="flex justify-between">
+            <h2 className="text-[28px]">₹ {dealerStats.balance?.toLocaleString() || "0"}</h2>
+            <button
+              onClick={handlePaymentUpdate}
+              className="bg-[#F94144] hover:bg-red-600 text-white px-8 -mt-1 text-[28px] rounded"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+      {/*{currentSlide === 1 && (
           <div className="bg-[#031123] p-8 rounded-lg h-[300px]">
             <p className="font-semibold mb-2 text-lg mb-3">Sales Profit by Category:</p>
             {[
@@ -210,57 +257,37 @@ const handlePaymentUpdate = () => {
               </div>
             ))}
           </div>
-        )}
-        {currentSlide === 2 && (
-          <div className="bg-[#031123] p-8 h-[300px] rounded-lg">
-            <p className="text-sm text-[#8E8E8E] mb-2">Amount Paid</p>
-           <input
-  type="number"
-  value={paymentAmount}
-  onChange={(e) => setPaymentAmount(e.target.value)}
-  placeholder="₹ 24,000"
-  className="w-full p-2 text-[30px] rounded bg-[#00193B] border border-[#1B2E5D] text-white mb-4"
-/>
+        )}*/} 
+      {/* Arrows */}
+      {currentSlide > 0 && (
+        <button
+          onClick={() => setCurrentSlide(currentSlide - 1)}
+          className="absolute  top-1/2 transform -translate-y-1/2 rounded-full p-1 text-gray-300 z-10"
+        >
+          <FaChevronLeft size={28} />
+        </button>
+      )}
+      {currentSlide < 1 && (
+        <button
+          onClick={() => setCurrentSlide(currentSlide + 1)}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 rounded-full p-1 text-gray-300 z-10"
+        >
+          <FaChevronRight size={28} />
+        </button>
+      )}
 
-            <p className="text-[18px] text-[#8E8E8E] mb-4">New Balance</p>
-            <div className="flex justify-between">
-            <h2 className="text-[28px]">₹ {dealerStats.balance.toLocaleString()}</h2>
-              <button
-  onClick={handlePaymentUpdate}
-  className="bg-[#F94144] hover:bg-red-600 text-white px-8 -mt-1 text-[28px] rounded"
->
-  Update
-</button>
-
-            </div>
-          </div>
-        )}
-        {currentSlide > 0 && (
-          <button
-            onClick={goToPrev}
-            className="absolute -left-1 top-1/2 transform -translate-y-1/2 rounded-full p-1 text-gray-500"
-          >
-            <FaChevronLeft size={28} />
-          </button>
-        )}
-        {currentSlide < 2 && (
-          <button
-            onClick={goToNext}
-            className="absolute -right-1 top-1/2 transform -translate-y-1/2 rounded-full p-1 text-gray-500"
-          >
-            <FaChevronRight size={28} />
-          </button>
-        )}
-        <div className="flex justify-center items-center space-x-1 mt-2 absolute bottom-2 left-1/2 transform -translate-x-1/2">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className={`h-2 w-2 rounded-full ${currentSlide === i ? "bg-white" : "bg-gray-400"}`}
-            />
-          ))}
-        </div>
+      {/* Dots */}
+      <div className="flex justify-center items-center space-x-1 absolute bottom-2 left-1/2 transform -translate-x-1/2">
+        {[0, 1].map((i) => (
+          <div
+            key={i}
+            className={`h-2 w-2 rounded-full ${currentSlide === i ? "bg-white" : "bg-gray-400"}`}
+          />
+        ))}
       </div>
-
+    </div>
+  
+    
       {/* Add Invoice Section */}
       <div className="flex items-center justify-between bg-[#00957e]  px-3 py-2 mt-8  rounded-full">
         <span className="font-bold text-[20px] ml-4">ADD INVOICE</span>

@@ -99,7 +99,7 @@ const Dealers = () => {
 
       {/* View Profiles Label */}
       <p className="text-[12px] mb-2 text-[#CCCCCC]">View Profiles</p>
-           {loading && <Loader/>}
+          
       {/* Dealer Boxes */}
       <div className="space-y-6 mb-24">
         {dealerProfiles.map((dealer) => (
@@ -117,7 +117,7 @@ const Dealers = () => {
           </div>
         ))}
       </div>
-
+{loading && <Loader />}
       {/* Footer */}
       <div className="fixed bottom-0 left-0 w-full bg-[#00193b] text-center text-xs text-[#CCCCCC] py-3">
         <p>Copyright © 2025 By Metro Scales. All Rights Reserved</p>
