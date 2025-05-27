@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const StockDetails = () => {
   const { date, id } = useParams();
   const location = useLocation();
-  const { day, dealerName } = location.state || {};
+  const { day, dealerName,invoiceId } = location.state || {};
 
   const [invoices, setInvoices] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -43,7 +43,7 @@ const StockDetails = () => {
   const fetchInvoices = async () => {
     try {
       const res = await fetch
-      (`https://metro.bytebandits.in/invoices/subinvoices/${id}?date=${date}`, {
+      (`https://metro.bytebandits.in/invoices/subinvoices/${invoiceId}?date=${date}`, {
   method: "GET",
   headers: { Authorization: `Bearer ${token}` },
 });
@@ -51,6 +51,7 @@ const StockDetails = () => {
       if (!res.ok) throw new Error("Failed to fetch sub-invoices");
       const data = await res.json();
 const filtered = data.filter((item) => item.date === date);
+
 
 setInvoices(filtered);
 
@@ -69,7 +70,7 @@ setInvoices(filtered);
     if (!product_name || !quantity || !standard_price) return;
 
     const payload = {
-      dealer_invoice_id: parseInt(id),
+      main_invoice_id: invoiceId,
       product_name,
       quantity: parseInt(quantity),
       standard_price: parseFloat(standard_price),
@@ -78,7 +79,7 @@ setInvoices(filtered);
     setLoading(true);
 
     try {
-      const res = await fetch("https://metro.bytebandits.in/invoices/subinvoice", {
+      const res = await fetch(`https://metro.bytebandits.in/invoices/subinvoice`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,20 +108,29 @@ setInvoices(filtered);
   };
 
   const handleDeleteSelected = async () => {
-    try {
-      await Promise.all(
-        selectedIds.map((id) =>
-          fetch(`https://metro.bytebandits.in/invoices/${id}`, {
-            method: "DELETE",
-            headers: { Authorization: `Bearer ${token}` },
-          })
-        )
-      );
-      fetchInvoices();
-    } catch (err) {
-      console.error("Delete failed:", err);
-    }
-  };
+  try {
+    await Promise.all(
+      selectedIds.map((subinvoiceId) =>
+        fetch(`https://metro.bytebandits.in/invoices/del_subinvoice`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            dealer_id: parseInt(id),       
+            subinvoice_id: subinvoiceId,
+          }),
+        })
+      )
+    );
+
+    fetchInvoices();
+  } catch (err) {
+    console.error("Delete failed:", err);
+  }
+};
+
 
   const total = invoices.reduce(
     (sum, item) => sum + item.quantity * item.standard_price,
@@ -241,7 +251,7 @@ setInvoices(filtered);
                   <p className="text-gray-400 ml-2">Piece</p>
                 </div>
               </div>
-              <div className=" bg-[#C541F9] w-[115px] text-white text-center font-bold py-4 px-3 text-[20px] whitespace-nowrap">
+              <div className=" bg-[#C541F9] w-[115px] text-white text-left font-bold py-4 px-3 text-[20px] whitespace-nowrap">
                 ₹ {(item.quantity * item.standard_price).toLocaleString()}
               </div>
             </div>

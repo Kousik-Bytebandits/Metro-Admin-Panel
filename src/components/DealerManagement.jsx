@@ -31,7 +31,7 @@ const DealerManagement = () => {
     e.preventDefault();
     setLoading(true); 
     try {
-      const res = await ("https://metro.bytebandits.in/dealers/create", {
+      const res = await fetch("https://metro.bytebandits.in/dealers/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

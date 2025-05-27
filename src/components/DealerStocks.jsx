@@ -36,7 +36,12 @@ const DealerStocks = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [invoiceDates, setInvoiceDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [invoiceMap, setInvoiceMap] = useState({});
   const topRef = useRef(null);
+  const [dealerStats, setDealerStats] = useState({ balance: null, revenue: null });
+
+const [paymentAmount, setPaymentAmount] = useState("");
+
 
   const fetchInvoices = () => {
     fetch(`https://metro.bytebandits.in/invoices/maininvoice?dealerid=${id}`, {
@@ -46,14 +51,41 @@ const DealerStocks = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const dates = data.map((inv) => new Date(inv.date));
-        setInvoiceDates(dates.sort((a, b) => new Date(a) - new Date(b)));
+          if (!Array.isArray(data)) {
+    throw new Error("Unexpected response format: " + JSON.stringify(data));
+  }
+  const dateToId = {};      
+const dates = data.map((inv) => {
+    const dateObj = new Date(inv.date);
+    dateToId[dateObj.toDateString()] = inv.id;  // assuming inv.id is main_invoice_id
+    return dateObj;
+  });
+        setInvoiceMap(dateToId);
+        setInvoiceDates(dates.sort((a, b) => a-b));
       })
       .catch((err) => console.error("Failed to fetch invoices:", err));
   };
+  const fetchDealerStats = () => {
+    
+  fetch(`https://metro.bytebandits.in/dealers/${id}/stats`, {
+    headers: {
+      Authorization: "Bearer 9f3a7c1d2b4e8f0a",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+       
+      setDealerStats({ balance: data.balance, revenue: data.net_revenue });
+    })
+    .catch((err) => {
+      console.error("Failed to fetch dealer stats:", err);
+    });
+};
+
 
   useEffect(() => {
     fetchInvoices();
+     fetchDealerStats();
   }, [id]);
 
   const goToNext = () => currentSlide < 2 && setCurrentSlide(currentSlide + 1);
@@ -63,7 +95,7 @@ const DealerStocks = () => {
     const formatted = formatDate(date);
     const day = new Date(date).toLocaleDateString("en-US", { weekday: "long" });
 
-    fetch("https://metro.bytebandits.in/invoices/maininvoice", {
+    fetch(`https://metro.bytebandits.in/invoices/maininvoice`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,11 +109,42 @@ const DealerStocks = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+          const newId = res.id;
+  const newDateObj = new Date(date);
+  setInvoiceMap((prev) => ({
+    ...prev,
+    [newDateObj.toDateString()]: newId
+  }));
         fetchInvoices();
         setSelectedDate(date);
       })
       .catch((err) => console.error("Failed to create invoice:", err));
   };
+const handlePaymentUpdate = () => {
+  const amount = parseFloat(paymentAmount);
+  if (isNaN(amount) || amount <= 0) {
+    alert("Please enter a valid amount.");
+    return;
+  }
+
+  fetch(`https://metro.bytebandits.in/dealers/${id}/payment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer 9f3a7c1d2b4e8f0a"
+    },
+    body: JSON.stringify({ amount })
+  })
+    .then((res) => res.json())
+    .then(() => {
+      setPaymentAmount("");        
+      fetchDealerStats();           
+    })
+    .catch((err) => {
+      console.error("Payment update failed:", err);
+      alert("Payment update failed.");
+    });
+};
 
   const scrollToTop = () => {
     topRef.current.scrollIntoView({ behavior: "smooth" });
@@ -93,9 +156,15 @@ const DealerStocks = () => {
 
   const navigate = useNavigate();
   const handleDayClick = (dateStr) => {
-    const day = new Date(dateStr).toLocaleDateString("en-US", { weekday: "long" });
+   const dateObj = new Date(dateStr);
+  const day = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+  const invoiceId = invoiceMap[dateObj.toDateString()];
+   if (!invoiceId) {
+    console.error("Invoice ID not found for selected date:", dateStr);
+    return;
+  }
     navigate(`/dealers/${id}/stocks/${encodeURIComponent(dateStr)}`, {
-      state: { dealerName ,day},
+      state: { dealerName, day, invoiceId }
     });
   };
 
@@ -117,11 +186,11 @@ const DealerStocks = () => {
       <div className="relative bg-[#031123] shadow-custom-blue rounded-lg">
         {currentSlide === 0 && (
           <div className="bg-[#031123] p-8 rounded-xl flex flex-col h-[300px]">
-            <p className="text-xl text-[#8E8E8E] ">Balance</p>
-            <h1 className="text-[50px] mb-2">₹ 50,000</h1>
-            <p className="text-xl text-[#8E8E8E] mt-2 mb-4">Net Revenue</p>
-            <h2 className="text-[35px]">₹ 5,00,000</h2>
-          </div>
+           <p className="text-xl text-[#8E8E8E]">Balance</p>
+<h1 className="text-[50px] mb-2">₹ {dealerStats.balance?.toLocaleString() || "0"}</h1>
+<p className="text-xl text-[#8E8E8E] mt-2 mb-4">Net Revenue</p>
+<h2 className="text-[35px]"> ₹ {typeof dealerStats.revenue === "number"? dealerStats.revenue.toLocaleString(): "0"}</h2>
+         </div>
         )}
         {currentSlide === 1 && (
           <div className="bg-[#031123] p-8 rounded-lg h-[300px]">
@@ -145,17 +214,24 @@ const DealerStocks = () => {
         {currentSlide === 2 && (
           <div className="bg-[#031123] p-8 h-[300px] rounded-lg">
             <p className="text-sm text-[#8E8E8E] mb-2">Amount Paid</p>
-            <input
-              type="text"
-              placeholder="₹ 24,000"
-              className="w-full p-2 text-[30px] rounded bg-[#00193B] border border-[#1B2E5D] text-white mb-4"
-            />
+           <input
+  type="number"
+  value={paymentAmount}
+  onChange={(e) => setPaymentAmount(e.target.value)}
+  placeholder="₹ 24,000"
+  className="w-full p-2 text-[30px] rounded bg-[#00193B] border border-[#1B2E5D] text-white mb-4"
+/>
+
             <p className="text-[18px] text-[#8E8E8E] mb-4">New Balance</p>
             <div className="flex justify-between">
-              <h2 className="text-[28px]">₹ 26,000</h2>
-              <button className="bg-[#F94144] hover:bg-red-600 text-white px-8 -mt-1 text-[28px] rounded">
-                Update
-              </button>
+            <h2 className="text-[28px]">₹ {dealerStats.balance.toLocaleString()}</h2>
+              <button
+  onClick={handlePaymentUpdate}
+  className="bg-[#F94144] hover:bg-red-600 text-white px-8 -mt-1 text-[28px] rounded"
+>
+  Update
+</button>
+
             </div>
           </div>
         )}
