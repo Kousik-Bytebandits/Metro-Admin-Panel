@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaTrash } from "react-icons/fa";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader"; 
 
 const StockDetails = () => {
   const { date, id } = useParams();
@@ -41,6 +42,7 @@ const StockDetails = () => {
 
   // Fetch subinvoices by dealer_invoice_id (which is id param)
   const fetchInvoices = async () => {
+    setLoading(true);
     try {
       const res = await fetch
       (`https://metro.bytebandits.in/invoices/subinvoices/${invoiceId}?date=${date}`, {
@@ -60,6 +62,9 @@ setInvoices(filtered);
       
     } catch (err) {
       console.error(err);
+    }
+     finally {
+      setLoading(false);
     }
   };
 
@@ -227,7 +232,7 @@ setInvoices(filtered);
             className="text-red-500 cursor-pointer"
           />
         </div>
-
+          {loading && <Loader />}
         {invoices.map((item, i) => (
           <div key={item.id || i} className="flex items-center space-x-2 ">
             <input

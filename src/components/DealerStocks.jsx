@@ -3,6 +3,7 @@ import { FaArrowLeft, FaChevronRight, FaCalendarAlt, FaChevronLeft, FaSyncAlt } 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Loader from "./Loader";
 
 const dayColors = {
   Sunday: "bg-[#577590]",
@@ -39,32 +40,35 @@ const DealerStocks = () => {
   const [invoiceMap, setInvoiceMap] = useState({});
   const topRef = useRef(null);
   const [dealerStats, setDealerStats] = useState({ balance: null, revenue: null });
-
+ const [loading, setLoading] = useState(false);
 const [paymentAmount, setPaymentAmount] = useState("");
 
 
-  const fetchInvoices = () => {
-    fetch(`https://metro.bytebandits.in/invoices/maininvoice?dealerid=${id}`, {
-      headers: {
-        Authorization: "Bearer 9f3a7c1d2b4e8f0a",
-      },
+const fetchInvoices = () => {
+  setLoading(true); 
+  fetch(`https://metro.bytebandits.in/invoices/maininvoice?dealerid=${id}`, {
+    headers: {
+      Authorization: "Bearer 9f3a7c1d2b4e8f0a",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!Array.isArray(data)) {
+        throw new Error("Unexpected response format: " + JSON.stringify(data));
+      }
+      const dateToId = {};
+      const dates = data.map((inv) => {
+        const dateObj = new Date(inv.date);
+        dateToId[dateObj.toDateString()] = inv.id;
+        return dateObj;
+      });
+      setInvoiceMap(dateToId);
+      setInvoiceDates(dates.sort((a, b) => a - b));
     })
-      .then((res) => res.json())
-      .then((data) => {
-          if (!Array.isArray(data)) {
-    throw new Error("Unexpected response format: " + JSON.stringify(data));
-  }
-  const dateToId = {};      
-const dates = data.map((inv) => {
-    const dateObj = new Date(inv.date);
-    dateToId[dateObj.toDateString()] = inv.id;  // assuming inv.id is main_invoice_id
-    return dateObj;
-  });
-        setInvoiceMap(dateToId);
-        setInvoiceDates(dates.sort((a, b) => a-b));
-      })
-      .catch((err) => console.error("Failed to fetch invoices:", err));
-  };
+    .catch((err) => console.error("Failed to fetch invoices:", err))
+    .finally(() => setLoading(false)); 
+};
+
   const fetchDealerStats = () => {
     
   fetch(`https://metro.bytebandits.in/dealers/${id}/stats`, {
@@ -107,16 +111,17 @@ const dates = data.map((inv) => {
     })
       .then((res) => res.json())
       .then((res) => {
-          const newId = res.id;
-  const newDateObj = new Date(date);
-  setInvoiceMap((prev) => ({
-    ...prev,
-    [newDateObj.toDateString()]: newId
-  }));
+        const newId = res.id;
+        const newDateObj = new Date(date);
+        setInvoiceMap((prev) => ({
+          ...prev,
+          [newDateObj.toDateString()]: newId
+        }));
         fetchInvoices();
         setSelectedDate(date);
       })
-      .catch((err) => console.error("Failed to create invoice:", err));
+      .catch((err) => console.error("Failed to create invoice:", err))
+      
   };
 const handlePaymentUpdate = () => {
   const amount = parseFloat(paymentAmount);
@@ -307,6 +312,9 @@ const handlePaymentUpdate = () => {
       </div>
 
       {/* Invoices */}
+      {loading ? (
+  <Loader />
+) : (
       <div className="space-y-2">
         {invoiceDates.map((dateStr, i) => {
           const day = getDayName(dateStr);
@@ -348,6 +356,8 @@ const handlePaymentUpdate = () => {
           );
         })}
       </div>
+)
+}
 
       {/* Scroll to Top */}
       <div className="flex justify-center mt-4">
