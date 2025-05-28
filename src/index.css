@@ -18,3 +18,23 @@
     animation-name: wave, swell;
   }
 }
+
+@media print {
+  @page {
+    size: A5 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-container {
+    width: 100%;
+    padding: 0;
+  }
+}

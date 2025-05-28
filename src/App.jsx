@@ -8,6 +8,7 @@ import DealerStocks from "./components/DealerStocks";
 import ScrollToTop from "./components/ScrollToTop";
 import StockDetails from "./components/StockDetails";
 import CustomerInvoice from "./components/CustomerInvoice";
+import PrintableInvoice from "./components/PrintableInvoice";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -71,6 +72,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CustomerInvoice />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/print"
+          element={
+            <ProtectedRoute>
+              <PrintableInvoice />
             </ProtectedRoute>
           }
         />
