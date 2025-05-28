@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loader from "./Loader";
+ import CountUp from 'react-countup';
 
 const dayColors = {
   Sunday: "bg-[#577590]",
@@ -214,13 +215,33 @@ const handlePaymentUpdate = () => {
         className="flex transition-transform duration-500 ease-in-out w-[100%] h-full"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
-        {/* Slide 1 */}
-        <div className="w-full flex-shrink-0 p-8">
-          <p className="text-xl text-[#8E8E8E]">Balance</p>
-          <h1 className="text-[50px] mb-2">₹ {dealerStats.balance?.toLocaleString() || "0"}</h1>
-          <p className="text-xl text-[#8E8E8E] mt-2 mb-4">Net Revenue</p>
-          <h2 className="text-[35px]">₹ {typeof dealerStats.revenue === "number" ? dealerStats.revenue.toLocaleString() : "0"}</h2>
-        </div>
+      
+
+{/* Slide 1 */}
+<div className="w-full flex-shrink-0 p-8">
+  <p className="text-xl text-[#8E8E8E]">Balance</p>
+  <h1 className="text-[50px] mb-2">
+    ₹{' '}
+    <CountUp
+      start={0}
+      end={dealerStats.balance || 0}
+      duration={2.5}
+      separator=","
+    />
+  </h1>
+  
+  <p className="text-xl text-[#8E8E8E] mt-2 mb-4">Net Revenue</p>
+  <h2 className="text-[35px]">
+    ₹{' '}
+    <CountUp
+      start={0}
+      end={typeof dealerStats.revenue === 'number' ? dealerStats.revenue : 0}
+      duration={2.5}
+      separator=","
+    />
+  </h2>
+</div>
+
 
         {/* Slide 2 */}
            <div className="w-full flex-shrink-0 p-8">
