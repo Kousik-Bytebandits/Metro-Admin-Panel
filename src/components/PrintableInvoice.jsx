@@ -1,18 +1,24 @@
-import  { useEffect, useState } from "react";
+import  { useEffect, useState ,useRef} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const PrintableInvoice =() => {
   const location = useLocation();
   const navigate = useNavigate();
   const invoiceData = location.state || {};
-
+   const hasGeneratedInvoice = useRef(false); 
   const [amountInWords, setAmountInWords] = useState("");
   const [invoiceId, setInvoiceId] = useState("");
 
+
+
   useEffect(() => {
-    
-    const randomId = `M-${Math.floor(1000 + Math.random() * 9000)}/25-26`;
-    setInvoiceId(randomId);
+     if (hasGeneratedInvoice.current) return; 
+    hasGeneratedInvoice.current = true;
+  let currentInvoiceNumber = localStorage.getItem("invoiceCounter");
+  currentInvoiceNumber = currentInvoiceNumber ? parseInt(currentInvoiceNumber, 10) : 1;
+  const randomId = `M-${currentInvoiceNumber}/25-26`;
+  setInvoiceId(randomId);
+  localStorage.setItem("invoiceCounter", currentInvoiceNumber + 1);
 
     
     const fetchAmountInWords = async () => {
@@ -58,12 +64,12 @@ const PrintableInvoice =() => {
         <div className="flex border-b border-black text-xs">
           <div className="w-1/2 p-2 border-r border-black leading-snug">
             <h2 className="font-bold">NEW METRO HARDWARES</h2>
-            <p>175, Gudalur Miladi Rd, Malligaiapuram Thottam,<br />Palakarai, Palakkarai, Tiruchirappalli, Tamil Nadu 620008.</p>
+            <p>No.39/175, Kayidey Millath Salai,<br/> Palakarai, Trichy-8.</p>
             <p className="font-bold">89401 45069.</p>
-            <p>GST: 33DZLPB8917D1ZE</p>
-            <p>ML: LIC.NO. 47</p>
-            <p>MMG LIC.NO: TN/TRI/LM/S/25/23-00096</p>
-            <p>Email: newmetrohardwares86@gmail.com</p>
+            <p>GST : 33DLGPA1807P1Z6</p>
+            <p>M.D.L.NO. 4213</p>
+            <p>MFG.L.No.TN/TRP/LM/15-23-00096</p>
+            <p>Email: newmetrohardwares68@gmail.com</p>
           </div>
           <div className="w-1/2 p-2 leading-snug">
             <h2 className="font-bold">Buyer:</h2>

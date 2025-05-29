@@ -83,7 +83,7 @@ const totalPayable = invoiceRows.reduce((sum, row) => sum + (parseFloat(row.tota
           type="date"
           value={customerDetails.date}
           onChange={(e) => setCustomerDetails({ ...customerDetails, date: e.target.value })}
-          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-[16px]"
+          className="w-full  max-w-full min-w-0 overflow-hidden p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-[14px] appearance-none"
         />
         <label className="text-[16px] text-[#cccccc]" >Phone Number</label>
         <input
