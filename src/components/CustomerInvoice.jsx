@@ -70,46 +70,46 @@ const totalPayable = invoiceRows.reduce((sum, row) => sum + (parseFloat(row.tota
 
       {/* Customer Details */}
       <div className="bg-[#031123] p-4 rounded-lg shadow-custom-blue w-full ">
-        <h3 className="text-white font-semibold mb-3">Customer Details</h3>
-       <label className="text-[14px] text-[#cccccc]" >Customer Name</label>
+        <h3 className="text-white text-[22px] font-semibold mb-3">Customer Details</h3>
+       <label className="text-[16px] text-[#cccccc]" >Customer Name</label>
         <input
           type="text"
           value={customerDetails.name}
           onChange={(e) => setCustomerDetails({ ...customerDetails, name: e.target.value })}
-          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-sm"
+          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-[16px]"
         />
-        <label className="text-[14px] text-[#cccccc]" >Date</label>
+        <label className="text-[16px] text-[#cccccc]" >Date</label>
         <input
           type="date"
           value={customerDetails.date}
           onChange={(e) => setCustomerDetails({ ...customerDetails, date: e.target.value })}
-          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-sm"
+          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-[16px]"
         />
-        <label className="text-[14px] text-[#cccccc]" >Phone Number</label>
+        <label className="text-[16px] text-[#cccccc]" >Phone Number</label>
         <input
           type="text"
           
           value={customerDetails.phone}
           onChange={(e) => setCustomerDetails({ ...customerDetails, phone: e.target.value })}
-          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-sm"
+          className="w-full p-2 mb-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-[16px]"
         />
-        <label className="text-[14px] text-[#cccccc]" >Address</label>
+        <label className="text-[16px] text-[#cccccc]" >Address</label>
         <textarea
           rows="3"
          
           value={customerDetails.address}
           onChange={(e) => setCustomerDetails({ ...customerDetails, address: e.target.value })}
-          className="w-full p-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-sm resize-none"
+          className="w-full p-2 bg-[#00193B] border border-[#1B2E5D] text-white rounded outline-none text-[16px] resize-none"
         />
       </div>
 
       {/* Invoice Table */}
       <div className="mt-4 w-full p-1">
-        <h4 className="mb-3 text-[14px] text-[#CCCCCC]">Invoice:</h4>
+        <h4 className="mb-3 text-[18px] text-[#CCCCCC]">Invoice:</h4>
         <div className="overflow-x-auto">
           <table className="w-full text-center rounded-xl text-white shadow-custom-blue">
             <thead>
-              <tr className="bg-[#031123] text-[#CCCCCC] text-sm">
+              <tr className="bg-[#031123] text-[#CCCCCC] text-[18px]">
                 <th className="p-3">Particulars</th>
                 <th className="p-3 w-16">Qty</th>
                 <th className="p-3 w-20">Rate</th>
@@ -124,14 +124,14 @@ const totalPayable = invoiceRows.reduce((sum, row) => sum + (parseFloat(row.tota
                       type="text"
                       value={row.particulars}
                       onChange={(e) => handleRowChange(i, "particulars", e.target.value)}
-                      className="w-full bg-transparent text-white outline-none text-sm"
+                      className="w-full bg-transparent text-white outline-none text-[16px]"
                     />
                   </td>
                   <td className="border border-[#1B2E5D] p-2">
                     <select
                       value={row.qty}
                       onChange={(e) => handleRowChange(i, "qty", e.target.value)}
-                      className="w-full bg-transparent text-white outline-none text-sm"
+                      className="w-full bg-transparent text-white outline-none text-[16px]"
                     >
                       <option value={0} className="text-black">Qty</option>
                       {Array.from({ length: 20 }, (_, idx) => (
@@ -146,7 +146,7 @@ const totalPayable = invoiceRows.reduce((sum, row) => sum + (parseFloat(row.tota
                       type="number"
                       value={row.rate}
                       onChange={(e) => handleRowChange(i, "rate", e.target.value)}
-                      className="w-full bg-transparent text-white outline-none text-sm text-center"
+                      className="w-full bg-transparent text-white outline-none text-[16px] text-center"
                     />
                   </td>
                   <td className="border border-[#1B2E5D] p-2 text-left">
@@ -169,7 +169,7 @@ const totalPayable = invoiceRows.reduce((sum, row) => sum + (parseFloat(row.tota
 
       {/* Print Button */}
       <button
-        className="mt-8 mb-10 bg-[#FF5470] text-white font-semibold py-2 px-8 rounded-full shadow-lg"
+        className="mt-8 mb-10 bg-[#FF5470] text-white font-semibold py-2 px-8 rounded-full "
         onClick={handlePrintClick}
       >
         Print

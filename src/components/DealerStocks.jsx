@@ -250,7 +250,7 @@ const handlePaymentUpdate = () => {
             type="number"
             value={paymentAmount}
             onChange={(e) => setPaymentAmount(e.target.value)}
-            placeholder="₹ 24,000"
+           
             className="w-full p-2 text-[30px] rounded bg-[#00193B] border border-[#1B2E5D] text-white mb-4"
           />
           <p className="text-[18px] text-[#8E8E8E] mb-4">New Balance</p>
