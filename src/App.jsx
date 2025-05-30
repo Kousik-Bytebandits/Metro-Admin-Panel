@@ -17,10 +17,10 @@ function App() {
       <ScrollToTop />
       <Routes>
         
-        <Route path="/" element={<Login />} />
+        <Route path="/Admin_Pannel/" element={<Login />} />
         
         <Route
-          path="/home-management"
+          path="/Admin_Pannel/home-management"
           element={
             <ProtectedRoute>
               <HomeManagement />
@@ -28,7 +28,7 @@ function App() {
           }
         />
         <Route
-          path="/dealers"
+          path="/Admin_Pannel/dealers"
           element={
             <ProtectedRoute>
               <Dealers />
@@ -36,7 +36,7 @@ function App() {
           }
         />
         <Route
-          path="/dealer-management"
+          path="/Admin_Pannel/dealer-management"
           element={
             <ProtectedRoute>
               <DealerManagement />
@@ -44,7 +44,7 @@ function App() {
           }
         />
         <Route
-          path="/update-dealer"
+          path="/Admin_Pannel/update-dealer"
           element={
             <ProtectedRoute>
               <UpdateDealer />
@@ -52,7 +52,7 @@ function App() {
           }
         />
         <Route
-          path="/dealers/:id/stocks"
+          path="/Admin_Pannel/dealers/:id/stocks"
           element={
             <ProtectedRoute>
               <DealerStocks />
@@ -60,7 +60,7 @@ function App() {
           }
         />
         <Route
-          path="/dealers/:id/stocks/:date"
+          path="/Admin_Pannel/dealers/:id/stocks/:date"
           element={
             <ProtectedRoute>
               <StockDetails />
@@ -68,7 +68,7 @@ function App() {
           }
         />
         <Route
-          path="/customer-invoice"
+          path="/Admin_Pannel/customer-invoice"
           element={
             <ProtectedRoute>
               <CustomerInvoice />
@@ -76,7 +76,7 @@ function App() {
           }
         />
          <Route
-          path="/print"
+          path="/Admin_Pannel/print"
           element={
             <ProtectedRoute>
               <PrintableInvoice />

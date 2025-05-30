@@ -17,7 +17,7 @@ const DealerManagement = () => {
   const [loading, setLoading] = useState(false); 
 
   const handleBack = () => {
-    navigate("/dealers");
+    navigate("/Admin_Pannel/dealers");
   };
 
   const handleChange = (e) => {
@@ -77,7 +77,7 @@ const DealerManagement = () => {
         <h1 className="text-center text-[25px] font-bold leading-tight">
           Dealer<br />Management
         </h1>
-        <img src="favicon.png" alt="Logo" className="w-12 h-12 rounded-full bg-white p-1" />
+        <img src="/favicon.png" alt="Logo" className="w-12 h-12 rounded-full bg-white p-1" />
       </div>
 
       {/* Form Container */}

@@ -47,19 +47,19 @@ const Dealers = () => {
 
  
   const handleBack = () => {
-    navigate('/home-management');
+    navigate('/Admin_Pannel/home-management');
   };
 
   const handleDealerManagement = () => {
-    navigate("/dealer-management");
+    navigate("/Admin_Pannel/dealer-management");
   };
 
   const handleUpdate = (dealer) => {
-    navigate("/update-dealer", { state: dealer });
+    navigate("/Admin_Pannel/update-dealer", { state: dealer });
   };
 
   const handleViewStocks = (dealer) => {
-      navigate(`/dealers/${dealer.id}/stocks`, { state: { dealerName: dealer.name } });
+      navigate(`/Admin_Pannel/dealers/${dealer.id}/stocks`, { state: { dealerName: dealer.name } });
   };
 
   return (
@@ -72,7 +72,7 @@ const Dealers = () => {
         </button>
         <h1 className="text-[25px] font-bold">Dealer Profiles</h1>
         <div className="rounded-full p-2 w-12 h-12 bg-white">
-          <img src="favicon.png" alt="Logo" className="w-8 h-8" />
+          <img src="/favicon.png" alt="Logo" className="w-8 h-8" />
         </div>
       </div>
 

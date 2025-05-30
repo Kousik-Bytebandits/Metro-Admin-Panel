@@ -7,13 +7,13 @@ const HomeManagement = () => {
   const formattedDate = today.toLocaleDateString("de-DE"); 
    const navigate = useNavigate();
  const handleBack=()=>{
-    navigate("/");
+    navigate(-1);
  }
  const handleDealer=()=>{
-  navigate("/dealers");
+  navigate("/Admin_Pannel/dealers");
  }
  const handleCustomer=()=>{
-  navigate("/customer-invoice");
+  navigate("/Admin_Pannel/customer-invoice");
  }
   return (
     <div className="min-h-screen bg-[#001a3d] font-archivo  text-white flex flex-col items-center py-8 px-4 overflow-hidden">
@@ -25,7 +25,7 @@ const HomeManagement = () => {
         <h1 className="text-[25px] font-bold ">Metro Scales</h1>
         <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
           <img
-            src="favicon.png"
+            src="/favicon.png"
             alt="Logo"
             className="w-8 h-8 object-contain"
           />

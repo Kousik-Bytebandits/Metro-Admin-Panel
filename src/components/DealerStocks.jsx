@@ -167,7 +167,7 @@ const handlePaymentUpdate = () => {
     console.error("Invoice ID not found for selected date:", dateStr);
     return;
   }
-    navigate(`/dealers/${id}/stocks/${encodeURIComponent(dateStr)}`, {
+    navigate(`/Admin_Pannel/dealers/${id}/stocks/${encodeURIComponent(dateStr)}`, {
       state: { dealerName, day, invoiceId }
     });
   };
