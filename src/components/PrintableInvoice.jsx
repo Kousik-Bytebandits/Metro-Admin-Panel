@@ -48,7 +48,7 @@ const PrintableInvoice =() => {
   };
 
   return (
-    <div className="w-[148mm] h-[210mm] px-6 pt-4 pb-10 text-sm text-black font-sans">
+    <div className="w-[148mm] h-[210mm] px-6 pt-4 pb-10 text-sm text-black font-archivo">
       <div className="border border-black">
         <h1 className="text-center font-bold text-lg border-b border-black pb-1">INVOICE</h1>
 
@@ -62,10 +62,12 @@ const PrintableInvoice =() => {
         </div>
 
         <div className="flex border-b border-black text-xs">
+        <img src="/metro.png" className="w-16 h-16 p-2 mt-1">
+        </img>
           <div className="w-1/2 p-2 border-r border-black leading-snug">
-            <h2 className="font-bold">NEW METRO HARDWARES</h2>
+            <h2 className="font-bold text-[15px]">NEW METRO HARDWARES</h2>
             <p>No.39/175, Kayidey Millath Salai,<br/> Palakarai, Trichy-8.</p>
-            <p className="font-bold">89401 45069.</p>
+            <p className="font-bold text-[15px]">89401 45069.</p>
             <p>GST : 33DLGPA1807P1Z6</p>
             <p>M.D.L.NO. 4213</p>
             <p>MFG.L.No.TN/TRP/LM/15-23-00096</p>
@@ -73,7 +75,7 @@ const PrintableInvoice =() => {
           </div>
           <div className="w-1/2 p-2 leading-snug">
             <h2 className="font-bold">Buyer:</h2>
-            <p className="text-[14px] font-bold mb-1">{invoiceData.buyerName || "--"}</p>
+            <p className="text-[15px] font-bold mb-1">{invoiceData.buyerName || "--"}</p>
             <p>{invoiceData.buyerAddress || "--"}</p>
             <p>{invoiceData.buyerPhone || "--"}</p>
           </div>
