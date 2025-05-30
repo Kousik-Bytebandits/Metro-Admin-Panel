@@ -39,7 +39,7 @@ const Login = () => {
         localStorage.removeItem("rememberedPassword");
       }
 
-      navigate("/Admin_Pannel/home-management");
+      navigate("/home-management");
     } catch (err) {
       setError(err.message);
     } finally {

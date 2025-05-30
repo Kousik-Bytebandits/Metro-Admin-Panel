@@ -47,19 +47,19 @@ const Dealers = () => {
 
  
   const handleBack = () => {
-    navigate('/Admin_Pannel/home-management');
+    navigate('/home-management');
   };
 
   const handleDealerManagement = () => {
-    navigate("/Admin_Pannel/dealer-management");
+    navigate("/dealer-management");
   };
 
   const handleUpdate = (dealer) => {
-    navigate("/Admin_Pannel/update-dealer", { state: dealer });
+    navigate("/update-dealer", { state: dealer });
   };
 
   const handleViewStocks = (dealer) => {
-      navigate(`/Admin_Pannel/dealers/${dealer.id}/stocks`, { state: { dealerName: dealer.name } });
+      navigate(`/dealers/${dealer.id}/stocks`, { state: { dealerName: dealer.name } });
   };
 
   return (

@@ -39,7 +39,7 @@ const CustomerInvoice = () => {
 
   const handlePrintClick = () => {
     const total = invoiceRows.reduce((sum, row) => sum + (parseFloat(row.total) || 0), 0);
-    navigate("/Admin_Pannel/print", {
+    navigate("/print", {
   state: {
     buyerName: customerDetails.name,
     buyerAddress: customerDetails.address,

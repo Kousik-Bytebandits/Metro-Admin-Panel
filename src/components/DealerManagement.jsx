@@ -17,7 +17,7 @@ const DealerManagement = () => {
   const [loading, setLoading] = useState(false); 
 
   const handleBack = () => {
-    navigate("/Admin_Pannel/dealers");
+    navigate("/dealers");
   };
 
   const handleChange = (e) => {

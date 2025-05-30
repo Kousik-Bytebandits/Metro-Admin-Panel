@@ -50,7 +50,7 @@ const UpdateDealer = () => {
       })
       .then(() => {
         alert("Dealer updated successfully!");
-        navigate("/Admin_Pannel/dealers"); 
+        navigate("/dealers"); 
       })
       .catch((err) => {
         console.error(err);

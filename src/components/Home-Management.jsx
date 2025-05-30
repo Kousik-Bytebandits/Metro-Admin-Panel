@@ -7,13 +7,13 @@ const HomeManagement = () => {
   const formattedDate = today.toLocaleDateString("de-DE"); 
    const navigate = useNavigate();
  const handleBack=()=>{
-    navigate(-1);
+    navigate("/");
  }
  const handleDealer=()=>{
-  navigate("/Admin_Pannel/dealers");
+  navigate("/dealers");
  }
  const handleCustomer=()=>{
-  navigate("/Admin_Pannel/customer-invoice");
+  navigate("/customer-invoice");
  }
   return (
     <div className="min-h-screen bg-[#001a3d] font-archivo  text-white flex flex-col items-center py-8 px-4 overflow-hidden">
