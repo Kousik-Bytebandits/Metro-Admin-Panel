@@ -61,7 +61,7 @@ const PrintableInvoice =() => {
           </div>
         </div>
 
-        <div className="flex border-b border-black text-xs">
+        <div className="flex   text-xs">
         <img src="/metro.png" className="w-16 h-16 p-2 mt-1">
         </img>
           <div className="w-1/2 p-2 border-r border-black leading-snug">
@@ -73,15 +73,15 @@ const PrintableInvoice =() => {
             <p>MFG.L.No.TN/TRP/LM/15-23-00096</p>
             <p>Email: newmetrohardwares68@gmail.com</p>
           </div>
-          <div className="w-1/2 p-2 leading-snug">
+          <div className="w-[40.5%] p-2 leading-snug">
             <h2 className="font-bold">Buyer:</h2>
             <p className="text-[15px] font-bold mb-1">{invoiceData.buyerName || "--"}</p>
-            <p>{invoiceData.buyerAddress || "--"}</p>
+            <p >{invoiceData.buyerAddress || "--"}</p>
             <p>{invoiceData.buyerPhone || "--"}</p>
           </div>
         </div>
 
-     <table className="w-full mt-2 text-xs text-center border-collapse">
+     <table className="w-full  text-xs text-center border-collapse">
   <thead>
     <tr className="border-y border-black">
       <th className="p-1 border-r border-black">S.No</th>
