@@ -25,7 +25,7 @@ const HomeManagement = () => {
         <h1 className="text-[25px] font-bold ">Metro Scales</h1>
         <div className="bg-white rounded-full w-12 h-12 flex items-center justify-center">
           <img
-            src="logo.png"
+            src="favicon.png"
             alt="Logo"
             className="w-8 h-8 object-contain"
           />

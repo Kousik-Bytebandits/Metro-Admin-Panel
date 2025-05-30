@@ -62,7 +62,7 @@ const PrintableInvoice =() => {
         </div>
 
         <div className="flex   text-xs">
-        <img src="/metro.png" className="w-16 h-16 p-2 mt-1">
+        <img src="/black.png" className="w-16 h-16 p-2 mt-1">
         </img>
           <div className="w-1/2 p-2 border-r border-black leading-snug">
             <h2 className="font-bold text-[15px]">NEW METRO HARDWARES</h2>

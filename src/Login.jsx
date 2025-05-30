@@ -63,7 +63,7 @@ const Login = () => {
       <div className="w-full max-w-sm mx-auto px-6 mt-4 flex-1">
         {/* Logo */}
         <div className="flex justify-center mb-2">
-          <img src="logo.png" alt="Logo" className="h-14" />
+          <img src="favicon.png" alt="Logo" className="h-14" />
         </div>
 
         {/* Title */}

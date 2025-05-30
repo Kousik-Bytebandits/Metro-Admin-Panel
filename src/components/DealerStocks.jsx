@@ -199,7 +199,7 @@ const handlePaymentUpdate = () => {
         </button>
         <h1 className="text-[25px] font-bold">Dealer Stocks</h1>
         <div className="w-12 h-12 bg-white p-1 rounded-full flex items-center justify-center">
-          <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
+          <img src="/favicon.png" alt="Logo" className="w-8 h-8 object-contain" />
         </div>
       </div>
 
